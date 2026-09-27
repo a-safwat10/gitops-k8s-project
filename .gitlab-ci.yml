@@ -1,0 +1,25 @@
+image:
+  name: hashicorp/terraform:1.7.5
+  entrypoint: [""]
+
+variables:
+  TF_ROOT: ${CI_PROJECT_DIR}/terraform
+
+stages:
+  - validate
+  - plan
+
+before_script:
+  - cd ${TF_ROOT}
+  - terraform init
+
+validate:
+  stage: validate
+  script:
+    - terraform fmt -check
+    - terraform validate
+
+plan:
+  stage: plan
+  script:
+    - terraform plan
