@@ -4,7 +4,10 @@ resource "aws_eks_cluster" "main" {
   version  = "1.36"
 
   vpc_config {
-    subnet_ids = [aws_subnet.public.id]
+    subnet_ids = [
+      aws_subnet.public.id,
+      aws_subnet.public_2.id
+    ]
   }
 
   depends_on = [
