@@ -1,6 +1,3 @@
-# Variables are like parameters — they make your code reusable
-# Instead of hardcoding "us-east-1" everywhere, we define it once here
-# and reference it as var.aws_region anywhere in our code
 
 variable "aws_region" {
   description = "The AWS region to deploy resources in"

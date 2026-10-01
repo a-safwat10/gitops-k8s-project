@@ -1,4 +1,3 @@
-# This tells Terraform which provider to use and which AWS region
 terraform {
   required_providers {
     aws = {
@@ -8,13 +7,10 @@ terraform {
   }
 }
 
-# Configure the AWS provider — region comes from our variable
 provider "aws" {
   region = var.aws_region
 }
 
-# Create a VPC — this is your private network in AWS
-# Think of it as buying a plot of land in the cloud
 resource "aws_vpc" "main" {
   cidr_block           = "10.0.0.0/16"
   enable_dns_hostnames = true
@@ -26,8 +22,6 @@ resource "aws_vpc" "main" {
   }
 }
 
-# Create a public subnet inside the VPC
-# This is a section of your network that can reach the internet
 resource "aws_subnet" "public" {
   vpc_id                  = aws_vpc.main.id
   cidr_block              = "10.0.1.0/24"
@@ -40,8 +34,18 @@ resource "aws_subnet" "public" {
   }
 }
 
-# Create an Internet Gateway
-# This is the door between your VPC and the public internet
+resource "aws_subnet" "public_2" {
+  vpc_id                  = aws_vpc.main.id
+  cidr_block              = "10.0.2.0/24"
+  availability_zone       = "us-east-1b"
+  map_public_ip_on_launch = true
+
+  tags = {
+    Name    = "gitops-public-subnet-2"
+    Project = "gitops-k8s-project"
+  }
+}
+
 resource "aws_internet_gateway" "main" {
   vpc_id = aws_vpc.main.id
 
