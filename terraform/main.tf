@@ -1,4 +1,11 @@
 terraform {
+  cloud {
+    organization = "asafwat-devops"
+    workspaces {
+      name = "gitops-k8s-project"
+    }
+  }
+
   required_providers {
     aws = {
       source  = "hashicorp/aws"
