@@ -5,8 +5,8 @@ A production-style GitOps platform built on AWS EKS, provisioned with Terraform 
 ## Architecture
 
 GitHub → GitHub Actions → Terraform Cloud → AWS EKS
-├── Helm (App Deployment)
-└── Argo CD (GitOps Sync)
+                                             ├── Helm (App Deployment)
+                                             └── Argo CD (GitOps Sync)
 
 
 ## Tech Stack
@@ -38,13 +38,14 @@ Every `git push` to `main` triggers:
 
 ## GitOps Flow
 
-Code change → git push → GitHub Actions (plan) → Manual approval → Terraform Apply
-↓
-EKS Cluster
-↓
-Argo CD detects drift
-↓
-Auto-sync to desired state
+Code change → git push → GitHub Actions → Manual Approval → Terraform Apply
+                                                                  ↓
+                                                            EKS Cluster
+                                                                  ↓
+                                                        Argo CD detects drift
+                                                                  ↓
+                                                      Auto-sync to desired state
+
 
 
 ## How to Use
@@ -73,7 +74,6 @@ helm install myapp ./helm/myapp
 
 ```bash
 kubectl get svc -n argocd
-# Open EXTERNAL-IP in browser
 # Username: admin
 # Password: kubectl -n argocd get secret argocd-initial-admin-secret -o jsonpath="{.data.password}" | base64 -d
 ```
@@ -94,4 +94,3 @@ gitops-k8s-project/
 │ └── workflows/
 │ └── terraform.yml
 └── argocd-app.yaml
-
