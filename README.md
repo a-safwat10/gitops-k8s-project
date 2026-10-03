@@ -3,9 +3,12 @@
 A production-style GitOps platform built on AWS EKS, provisioned with Terraform and deployed via Argo CD with a fully automated CI/CD pipeline.
 
 ## Architecture
+
+```
 GitHub → GitHub Actions → Terraform Cloud → AWS EKS
-├── Helm (App Deployment)
-└── Argo CD (GitOps Sync)
+                                              ├── Helm (App Deployment)
+                                              └── Argo CD (GitOps Sync)
+```
 
 
 ## Tech Stack
@@ -36,12 +39,12 @@ Every `git push` to `main` triggers:
 
 ## GitOps Flow
 Code change → git push → GitHub Actions (plan) → Manual approval → Terraform Apply
-↓
-EKS Cluster
-↓
-Argo CD detects drift
-↓
-Auto-sync to desired state## How to Use
+                                                                         ↓
+                                                                     EKS Cluster
+                                                                         ↓
+                                                                Argo CD detects drift
+                                                                         ↓
+                                                         Auto-sync to desired state## How to Use
 
 ### Prerequisites
 - AWS Account with credentials
