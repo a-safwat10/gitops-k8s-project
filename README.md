@@ -92,6 +92,6 @@ gitops-k8s-project/
 │ └── myapp/
 ├── .github/
 │ └── workflows/
-```
 │ └── terraform.yml
 └── argocd-app.yaml
+```
