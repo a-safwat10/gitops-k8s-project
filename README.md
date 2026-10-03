@@ -4,11 +4,9 @@ A production-style GitOps platform built on AWS EKS, provisioned with Terraform 
 
 ## Architecture
 
-```
 GitHub → GitHub Actions → Terraform Cloud → AWS EKS
-                                              ├── Helm (App Deployment)
-                                              └── Argo CD (GitOps Sync)
-```
+├── Helm (App Deployment)
+└── Argo CD (GitOps Sync)
 
 
 ## Tech Stack
@@ -32,21 +30,27 @@ GitHub → GitHub Actions → Terraform Cloud → AWS EKS
 ## CI/CD Pipeline
 
 Every `git push` to `main` triggers:
+
 1. Terraform Format Check
 2. Terraform Validate
 3. Terraform Plan
 4. Terraform Apply (requires manual approval)
 
 ## GitOps Flow
+
 Code change → git push → GitHub Actions (plan) → Manual approval → Terraform Apply
-                                                                         ↓
-                                                                     EKS Cluster
-                                                                         ↓
-                                                                Argo CD detects drift
-                                                                         ↓
-                                                         Auto-sync to desired state## How to Use
+↓
+EKS Cluster
+↓
+Argo CD detects drift
+↓
+Auto-sync to desired state
+
+
+## How to Use
 
 ### Prerequisites
+
 - AWS Account with credentials
 - Terraform Cloud account
 - kubectl and Helm installed
@@ -78,15 +82,16 @@ kubectl get svc -n argocd
 
 gitops-k8s-project/
 ├── terraform/
-│ ├── main.tf # VPC, subnets, provider config
-│ ├── eks.tf # EKS cluster and node group
-│ ├── iam.tf # IAM roles and policies
-│ ├── routing.tf # Route table and associations
-│ ├── variables.tf # Input variables
-│ └── outputs.tf # Output values
+│ ├── main.tf
+│ ├── eks.tf
+│ ├── iam.tf
+│ ├── routing.tf
+│ ├── variables.tf
+│ └── outputs.tf
 ├── helm/
-│ └── myapp/ # Helm chart for nginx application
+│ └── myapp/
 ├── .github/
 │ └── workflows/
-│ └── terraform.yml # GitHub Actions CI/CD pipeline
-└── argocd-app.yaml # Argo CD application manifest
+│ └── terraform.yml
+└── argocd-app.yaml
+
